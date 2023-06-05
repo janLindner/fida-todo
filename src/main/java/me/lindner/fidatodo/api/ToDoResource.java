@@ -11,7 +11,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
-import lombok.extern.slf4j.Slf4j;
 import me.lindner.fidatodo.model.ToDoEntry;
 import me.lindner.fidatodo.model.ToDoService;
 

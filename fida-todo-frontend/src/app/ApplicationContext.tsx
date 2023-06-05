@@ -1,4 +1,4 @@
-import React, {Consumer} from "react";
+import React from "react";
 import {ToDoEntry} from "@/models/ToDoEntry";
 
 export const ApplicationContext = React.createContext<ApplicationContextData>(
