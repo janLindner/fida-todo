@@ -9,7 +9,7 @@ import ActiveToDos from "@/components/ActiveToDos";
 import {Alert} from "@mui/material";
 import {Snackbar} from "@mui/base";
 
-export default () => {
+const Page = () => {
     const [entries, setEntries] = useState<ToDoEntry[]>([])
     const [message, setMessage] = useState<string | null>(null)
     const [error, setError] = useState<string | null>(null)
@@ -37,3 +37,5 @@ export default () => {
 
     );
 }
+
+export default Page

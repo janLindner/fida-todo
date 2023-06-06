@@ -20,8 +20,10 @@ const getEntries = (): Promise<ToDoEntry[]> => {
         .then(data => data as ToDoEntry[])
 }
 
-export default {
+const api = {
     updateEntry,
     deleteEntry,
     getEntries
 }
+
+export default api
