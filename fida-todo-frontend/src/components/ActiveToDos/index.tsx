@@ -39,7 +39,7 @@ const ActiveToDos = () => {
             {activeEntries.map((entry: ToDoEntry, index: number) => <Grid container key={index}>
                 <Grid item xs={1}>
                     <Tooltip title='Aufgabe als erledigt markieren.'>
-                        <IconButton onClick={() => completeEntry(entry)}>
+                        <IconButton data-testid='complete-button' onClick={() => completeEntry(entry)}>
                             <Check/>
                         </IconButton>
                     </Tooltip>
@@ -56,7 +56,7 @@ const ActiveToDos = () => {
                 </Grid>
                 <Grid item xs={1}>
                     <Tooltip title='Aufgabe dauerhaft löschen!'>
-                        <IconButton onClick={() => deleteEntry(entry.id)}>
+                        <IconButton data-testid='delete-button' onClick={() => deleteEntry(entry.id)}>
                             <DeleteForeverOutlined/>
                         </IconButton>
                     </Tooltip>
