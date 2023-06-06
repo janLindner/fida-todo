@@ -17,6 +17,7 @@ The frontend single page application uses `react` as its framework. The javascri
 
 The backend application uses `Quarkus` as its framework built upon the specification of `Jakarta 10` and using the
 implementation of the `JAX-RS` specification `RESTeasy`.
+Example requests are contained in the exported postman collection in `fida-todo.postman_collection.json`.
 
 ## Development
 
