@@ -1,21 +1,30 @@
 package me.lindner.fidatodo.api;
 
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.inject.Inject;
+import me.lindner.fidatodo.model.ToDoService;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+
+import java.time.LocalDate;
+import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 
 @QuarkusTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ToDoResourceTest {
 
+    @Inject
+    ToDoService service;
+
+    @BeforeEach
+    void setUp() {
+        service.getEntries().forEach(entry -> service.deleteEntry(entry.getId()));
+    }
+
     @Test
-    @Order(1)
     @DisplayName("Should create entry")
     public void shouldCreateToDoEntry() {
         given()
@@ -33,9 +42,10 @@ class ToDoResourceTest {
     }
 
     @Test
-    @Order(2)
     @DisplayName("Should list entries")
     public void shouldGetEntries() {
+        service.createEntry(new CreateToDoRequest(null, LocalDate.now(), "Content"));
+
         given()
             .accept("application/json")
             .when()
@@ -48,12 +58,34 @@ class ToDoResourceTest {
     }
 
     @Test
-    @Order(3)
+    @DisplayName("Should update entry")
+    public void shouldUpdateEntry() {
+        // given
+        final var entry = service.createEntry(new CreateToDoRequest(null, LocalDate.now(), "Content"));
+
+        // when
+        given()
+            .contentType("application/json")
+            .body("{\"content\": \"Content\", \"dueDate\": \"2023-06-02\", \"completed\": \"true\"}")
+            .when()
+            .put("/api/todos/" + entry.getId())
+            .then()
+            .assertThat()
+            .statusCode(204);
+    }
+
+    @Test
     @DisplayName("Should delete entry")
     public void shouldDeleteEntry() {
+        service.createEntry(new CreateToDoRequest(
+            UUID.fromString("d286d86d-ab95-44da-aca5-bbc805e8966c"),
+            LocalDate.now(),
+            "Content"
+        ));
+
         given()
             .when()
-            .delete("/api/todos/1f347268-c12d-47a9-8661-e8d3eb0f34db")
+            .delete("/api/todos/d286d86d-ab95-44da-aca5-bbc805e8966c")
             .then()
             .assertThat()
             .statusCode(204);

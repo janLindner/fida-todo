@@ -5,7 +5,6 @@ import me.lindner.fidatodo.api.CreateToDoRequest;
 import me.lindner.fidatodo.api.UpdateToDoRequest;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -23,10 +22,10 @@ public class ToDoService {
      * Determines all currently existing {@link ToDoEntry entries}. The list contains both completed and unfinished
      * {@link ToDoEntry entries}.
      *
-     * @return All currently existing {@link ToDoEntry entries} as an unmodifiable list.
+     * @return All currently existing {@link ToDoEntry entries} as an unmodifiable copied list.
      */
     public List<ToDoEntry> getEntries() {
-        return Collections.unmodifiableList(entries);
+        return entries.stream().toList();
     }
 
     /**
