@@ -1,6 +1,7 @@
 package me.lindner.fidatodo.model;
 
 import me.lindner.fidatodo.api.CreateToDoRequest;
+import me.lindner.fidatodo.api.ToDoEntryResponse;
 import me.lindner.fidatodo.api.UpdateToDoRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +45,7 @@ class ToDoServiceTest {
     void shouldCreateToDoEntryWithGivenId() {
         // given
         final var request = new CreateToDoRequest(UUID.randomUUID(), LocalDate.now(), "Test Content");
-        final var expectedEntry = new ToDoEntry(request.getId(), request.getDueDate(), request.getContent(), false);
+        final var expectedEntry = new ToDoEntryResponse(request.getId(), request.getDueDate(), request.getContent(), false);
 
         // when
         final var createdEntry = service.createEntry(request);
@@ -61,7 +62,7 @@ class ToDoServiceTest {
     void shouldDeleteToDoEntry() {
         // given
         final var request = new CreateToDoRequest(UUID.randomUUID(), LocalDate.now(), "Test Content");
-        final ToDoEntry entry = service.createEntry(request);
+        final ToDoEntryResponse entry = service.createEntry(request);
 
         // when
         final boolean deleted = service.deleteEntry(entry.getId());
@@ -76,9 +77,9 @@ class ToDoServiceTest {
     void shouldUpdateEntry() {
         // given
         final var createRequest = new CreateToDoRequest(UUID.randomUUID(), LocalDate.now(), "Test Content");
-        final ToDoEntry createdEntry = service.createEntry(createRequest);
+        final ToDoEntryResponse createdEntry = service.createEntry(createRequest);
         final var updateRequest = new UpdateToDoRequest(LocalDate.now(), "Other Content", true);
-        final var expectedEntry = new ToDoEntry(createdEntry.getId(), updateRequest.getDueDate(), updateRequest.getContent(), updateRequest.getCompleted());
+        final var expectedEntry = new ToDoEntryResponse(createdEntry.getId(), updateRequest.getDueDate(), updateRequest.getContent(), updateRequest.getCompleted());
 
         // when
         final boolean deleted = service.updateEntry(createdEntry.getId(), updateRequest);

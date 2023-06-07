@@ -2,6 +2,7 @@ package me.lindner.fidatodo.model;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import me.lindner.fidatodo.api.CreateToDoRequest;
+import me.lindner.fidatodo.api.ToDoEntryResponse;
 import me.lindner.fidatodo.api.UpdateToDoRequest;
 
 import java.util.ArrayList;
@@ -24,8 +25,15 @@ public class ToDoService {
      *
      * @return All currently existing {@link ToDoEntry entries} as an unmodifiable copied list.
      */
-    public List<ToDoEntry> getEntries() {
-        return entries.stream().toList();
+    public List<ToDoEntryResponse> getEntries() {
+        return entries.stream()
+            .map(entry -> new ToDoEntryResponse(
+                entry.getId(),
+                entry.getDueDate(),
+                entry.getContent(),
+                entry.isCompleted()
+            ))
+            .toList();
     }
 
     /**
@@ -38,7 +46,7 @@ public class ToDoService {
      *
      * @return The created {@link ToDoEntry}.
      */
-    public ToDoEntry createEntry(final CreateToDoRequest request) {
+    public ToDoEntryResponse createEntry(final CreateToDoRequest request) {
         final ToDoEntry entry = new ToDoEntry(
             Objects.requireNonNullElseGet(request.getId(), UUID::randomUUID),
             request.getDueDate(),
@@ -48,7 +56,12 @@ public class ToDoService {
 
         entries.add(entry);
 
-        return entry;
+        return new ToDoEntryResponse(
+            entry.getId(),
+            entry.getDueDate(),
+            entry.getContent(),
+            entry.isCompleted()
+        );
     }
 
     /**

@@ -29,7 +29,7 @@ class ToDoResourceTest {
     public void shouldCreateToDoEntry() {
         given()
             .contentType("application/json")
-            .body("{\"id\": \"1f347268-c12d-47a9-8661-e8d3eb0f34db\", \"content\": \"Content\", \"dueDate\": \"2023-06-02\"}")
+            .body("{\"id\": \"1f347268-c12d-47a9-8661-e8d3eb0f34db\", \"content\": \"Content\", \"dueDate\": \"05.03.2012\"}")
             .when()
             .post("/api/todos")
             .then()
@@ -38,7 +38,7 @@ class ToDoResourceTest {
             .and()
             .body("id", Matchers.equalTo("1f347268-c12d-47a9-8661-e8d3eb0f34db"))
             .body("content", Matchers.equalTo("Content"))
-            .body("dueDate", Matchers.equalTo("2023-06-02"));
+            .body("dueDate", Matchers.equalTo("05.03.2012"));
     }
 
     @Test
@@ -66,7 +66,7 @@ class ToDoResourceTest {
         // when
         given()
             .contentType("application/json")
-            .body("{\"content\": \"Content\", \"dueDate\": \"2023-06-02\", \"completed\": \"true\"}")
+            .body("{\"content\": \"Content\", \"dueDate\": \"05.03.2012\", \"completed\": \"true\"}")
             .when()
             .put("/api/todos/" + entry.getId())
             .then()

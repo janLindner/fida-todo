@@ -1,5 +1,6 @@
 package me.lindner.fidatodo.api;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 public class UpdateToDoRequest {
 
     @NotNull
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate dueDate;
     @NotEmpty
     private String content;

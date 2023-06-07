@@ -11,7 +11,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
-import me.lindner.fidatodo.model.ToDoEntry;
 import me.lindner.fidatodo.model.ToDoService;
 
 import java.util.List;
@@ -26,12 +25,12 @@ public class ToDoResource {
     ToDoService service;
 
     @GET
-    public List<ToDoEntry> getAll() {
+    public List<ToDoEntryResponse> getAll() {
         return service.getEntries();
     }
 
     @POST
-    public ToDoEntry createEntry(@Valid final CreateToDoRequest request) {
+    public ToDoEntryResponse createEntry(@Valid final CreateToDoRequest request) {
         return service.createEntry(request);
     }
 
